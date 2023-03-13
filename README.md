@@ -8,9 +8,20 @@ In this project, we'll dive deep into the implementation of a single common UI c
 
 ## Getting Started
 
-This project is created with create-react-app. It's intended to be run locally, on your computer, using Node.js and NPM.
+This project is created with vite
+`npm create vite@latest`
+按照互動式選單操作
 
-During the first project, Wordle, we saw how to run a local development server. If you're not quite sure how to get started, I recommend reviewing the [“Local Development” instructions](https://courses.joshwcomeau.com/joy-of-react/project-wordle/03-dev-server) lesson.
+## 安裝套件
+`yarn` 
+`yarn add -D prettier new-component react-feather`
+
+`yarn dev` 可以開發了~
+
+## 把必要的檔案搬過來
+- readme
+- .js 改成 `.tsx`
+- index.js 改成 `index.ts`
 
 To jog your memory, here are the terminal commands you'll need to run:
 
