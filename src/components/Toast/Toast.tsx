@@ -19,6 +19,7 @@ const ICONS_BY_VARIANT: Record<string, Icon> = {
 };
 
 //* 特別的技巧來了！！！
+// [javascript - When to use JSX.Element vs ReactNode vs ReactElement? - Stack Overflow](https://stackoverflow.com/questions/58123398/when-to-use-jsx-element-vs-reactnode-vs-reactelement)
 const IconComp = ({ icon: IconPic, size = 24 }: { icon: Icon, size?: number }) => {
   return (
     <IconPic size={size} />
@@ -28,11 +29,11 @@ const IconComp = ({ icon: IconPic, size = 24 }: { icon: Icon, size?: number }) =
 function Toast({
   textarea,
   variant,
-  setIsToastShow
+  deleteToast
 }: {
   textarea: string,
   variant: string,
-  setIsToastShow: any
+  deleteToast: () => void
  }) {
   return (
     <div className={`${styles.toast} ${styles[variant]}`}>
@@ -42,7 +43,7 @@ function Toast({
       <p className={styles.content}>
         {textarea}
       </p>
-      <button className={styles.closeButton} onClick={() => {setIsToastShow(false)}}>
+      <button className={styles.closeButton} onClick={() => {deleteToast(); }}>
         <X size={24} />
         <VisuallyHidden>Dismiss message</VisuallyHidden>
       </button>

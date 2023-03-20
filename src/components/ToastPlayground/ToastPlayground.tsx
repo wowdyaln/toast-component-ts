@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
+import { ToastType } from '../../types';
 
 import Button from '../Button';
-import Toast from '../Toast/Toast';
+// import Toast from '../Toast/Toast';
+import ToastShelf from '../ToastShelf';
 import styles from './ToastPlayground.module.css';
 
 const VARIANT_OPTIONS = ['notice', 'warning', 'success', 'error'];
@@ -9,7 +11,8 @@ const VARIANT_OPTIONS = ['notice', 'warning', 'success', 'error'];
 function ToastPlayground() {
   const [textarea, setTextarea] = useState('');
   const [variant, setVariant] = useState(VARIANT_OPTIONS[0]);
-  const [isToastShow, setIsToastShow] = useState(false);
+  const [toasts, setToasts] = useState<ToastType[]>([]);
+
   return (
     <div className={styles.wrapper}>
       <header>
@@ -18,12 +21,7 @@ function ToastPlayground() {
       </header>
       {/* Toast */}
       {
-        isToastShow && 
-          <Toast
-            textarea={textarea}
-            variant={variant}
-            setIsToastShow={setIsToastShow}
-          />
+        toasts.length > 0 && <ToastShelf useToastState={{toasts, setToasts}}/>
       }
       <div className={styles.controlsWrapper}>
         <div className={styles.row}>
@@ -66,16 +64,27 @@ function ToastPlayground() {
 
         <div className={styles.row}>
           <div className={styles.label} />
-          <div
-            className={`${styles.inputWrapper} ${styles.radioWrapper}`}
-          >
-            <Button onClick={() => {
-              console.log({ textarea, variant });
-              setIsToastShow(true);
-            }}
-            >
-              Pop Toast!
-            </Button>
+          <div className={`${styles.inputWrapper} ${styles.radioWrapper}`}>
+            <form>
+              <Button
+                type="submit"
+                onClick={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+                  e.preventDefault();
+                  console.log({ textarea, variant });
+                  setToasts([
+                    ...toasts, {
+                      text: textarea,
+                      variant,
+                      id: crypto.randomUUID() 
+                    }
+                  ]);
+                  setTextarea('');
+                  setVariant(VARIANT_OPTIONS[0]);
+                }}
+              >
+                Pop Toast!
+              </Button>
+            </form>
           </div>
         </div>
       </div>
