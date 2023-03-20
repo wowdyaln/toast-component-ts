@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import Button from '../Button';
 import styles from './ToastPlayground.module.css';
@@ -6,6 +6,8 @@ import styles from './ToastPlayground.module.css';
 const VARIANT_OPTIONS = ['notice', 'warning', 'success', 'error'];
 
 function ToastPlayground() {
+  const [textarea, setTextarea] = useState('');
+  const [variant, setVariant] = useState(VARIANT_OPTIONS[0]);
   return (
     <div className={styles.wrapper}>
       <header>
@@ -23,7 +25,7 @@ function ToastPlayground() {
             Message
           </label>
           <div className={styles.inputWrapper}>
-            <textarea id="message" className={styles.messageInput} />
+            <textarea id="message" className={styles.messageInput} value={textarea} onChange={(e) => { setTextarea(e.target.value); }} />
           </div>
         </div>
 
@@ -32,16 +34,23 @@ function ToastPlayground() {
           <div
             className={`${styles.inputWrapper} ${styles.radioWrapper}`}
           >
-            <label htmlFor="variant-notice">
-              <input
-                id="variant-notice"
-                type="radio"
-                name="variant"
-                value="notice"
-              />
-              notice
-            </label>
-
+              {
+                VARIANT_OPTIONS.map((option, index) => (
+                  <label htmlFor={option} key={index}>
+                    <input
+                      type="radio"
+                      name="variant"
+                      id={option}
+                      value={option}
+                      checked={variant === VARIANT_OPTIONS[index]}
+                      onChange={event => {
+                        setVariant(event.target.value)
+                      }}
+                    />
+                    {option}
+                  </label>
+                ))
+              }
             {/* TODO Other Variant radio buttons here */}
           </div>
         </div>
@@ -51,7 +60,7 @@ function ToastPlayground() {
           <div
             className={`${styles.inputWrapper} ${styles.radioWrapper}`}
           >
-            <Button>Pop Toast!</Button>
+            <Button onClick={() => { console.log({ textarea, variant })}} >Pop Toast!</Button>
           </div>
         </div>
       </div>
