@@ -1,5 +1,5 @@
-import { useState } from 'react'
-import { ToastType } from '../../types'
+import React from 'react'
+import { ToastContext, ToastContextType } from '../ToastProvider'
 
 import Button from '../Button'
 import ToastShelf from '../ToastShelf'
@@ -8,9 +8,11 @@ import styles from './ToastPlayground.module.css'
 const VARIANT_OPTIONS = ['notice', 'warning', 'success', 'error']
 
 function ToastPlayground() {
-  const [textarea, setTextarea] = useState('')
-  const [variant, setVariant] = useState(VARIANT_OPTIONS[0])
-  const [toasts, setToasts] = useState<ToastType[]>([])
+  const { useTextarea, useVariant, useToasts } = React.useContext(ToastContext) as ToastContextType
+
+  const [textarea, setTextarea] = useTextarea
+  const [variant, setVariant] = useVariant
+  const [toasts, setToasts] = useToasts
 
   return (
     <div className={styles.wrapper}>
@@ -19,7 +21,7 @@ function ToastPlayground() {
         <h1>Toast Playground</h1>
       </header>
       {/* Toast */}
-      {toasts.length > 0 && <ToastShelf useToastState={{ toasts, setToasts }} />}
+      {toasts.length > 0 && <ToastShelf />}
       <div className={styles.controlsWrapper}>
         <div className={styles.row}>
           <label htmlFor="message" className={styles.label} style={{ alignSelf: 'baseline' }}>
@@ -66,7 +68,6 @@ function ToastPlayground() {
                 type="submit"
                 onClick={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
                   e.preventDefault()
-                  console.log({ textarea, variant })
                   setToasts([
                     ...toasts,
                     {

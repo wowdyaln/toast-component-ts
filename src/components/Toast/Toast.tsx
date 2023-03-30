@@ -1,4 +1,6 @@
+import React from 'react'
 import { Icon, AlertOctagon, AlertTriangle, CheckCircle, Info, X } from 'react-feather'
+import { ToastContext, ToastContextType } from '../ToastProvider'
 
 import VisuallyHidden from '../VisuallyHidden'
 
@@ -18,14 +20,22 @@ const IconComp = ({ icon: IconPic, size = 24 }: { icon: Icon; size?: number }) =
 }
 
 function Toast({
+  deleteId,
   textarea,
   variant,
-  deleteToast,
 }: {
+  deleteId: string
   textarea: string
   variant: string
-  deleteToast: () => void
 }) {
+  const { useToasts } = React.useContext(ToastContext) as ToastContextType
+  const [toasts, setToasts] = useToasts
+
+  const deleteToast = (id: string) => {
+    const filteredToast = toasts.filter((toast) => toast.id !== id)
+    setToasts(filteredToast)
+  }
+
   return (
     <div className={`${styles.toast} ${styles[variant]}`}>
       <div className={styles.iconContainer}>
@@ -35,7 +45,8 @@ function Toast({
       <button
         className={styles.closeButton}
         onClick={() => {
-          deleteToast()
+          // console.log({ textarea, variant, deleteId })
+          deleteToast(deleteId)
         }}
       >
         <X size={24} />
