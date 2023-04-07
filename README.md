@@ -23,6 +23,21 @@ This project is created with vite
 - .js 改成 `.tsx`
 - index.js 改成 `index.ts`
 
+## 新增 eslint
+[Create-React-App 到 Vite: ESLint 環境架設 - iT 邦幫忙::一起幫忙解決難題，拯救 IT 人的一天](https://ithelp.ithome.com.tw/articles/10309086)
+
+yarn add -D
+eslint
+eslint-config-prettier
+eslint-plugin-import
+eslint-plugin-jsx-a11y
+eslint-plugin-react
+eslint-plugin-react-hooks
+@typescript-eslint/parser
+@typescript-eslint/eslint-plugin
+@types/node
+
+
 To jog your memory, here are the terminal commands you'll need to run:
 
 ```bash

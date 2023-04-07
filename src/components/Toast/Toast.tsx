@@ -1,4 +1,5 @@
 import React from 'react'
+// eslint-disable-next-line import/named
 import { Icon, AlertOctagon, AlertTriangle, CheckCircle, Info, X } from 'react-feather'
 import { ToastContext, ToastContextType } from '../ToastProvider'
 

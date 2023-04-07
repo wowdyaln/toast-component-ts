@@ -9,7 +9,7 @@ function ToastShelf() {
   const { useToasts } = React.useContext(ToastContext) as ToastContextType
   const [toasts, setToasts] = useToasts
 
-  useEscKey((event) => {
+  useEscKey(() => {
     // console.log(event.key)
     setToasts([])
   })
