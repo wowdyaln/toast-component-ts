@@ -1,28 +1,18 @@
-import React, { useEffect } from 'react'
-import { ToastType } from '../../types'
+import React from 'react'
 import { ToastContext, ToastContextType } from '../ToastProvider'
 
 import Toast from '../Toast'
 import styles from './ToastShelf.module.css'
+import useEscKey from '../../hooks/use-esc-key'
 
 function ToastShelf() {
   const { useToasts } = React.useContext(ToastContext) as ToastContextType
   const [toasts, setToasts] = useToasts
 
-  useEffect(() => {
-    const pressESC = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') {
-        console.warn('ESC press')
-        setToasts([])
-      }
-    }
-    window.addEventListener('keydown', pressESC, false)
-
-    return () => {
-      window.removeEventListener('keydown', pressESC, false)
-    }
-
-  }, [])
+  useEscKey((event) => {
+    // console.log(event.key)
+    setToasts([])
+  })
 
   return (
     <ol className={styles.wrapper}>
