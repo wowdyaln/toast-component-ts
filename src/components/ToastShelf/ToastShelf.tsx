@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 import { ToastContext, ToastContextType } from '../ToastProvider'
 
 import Toast from '../Toast'
@@ -9,10 +9,12 @@ function ToastShelf() {
   const { useToasts } = React.useContext(ToastContext) as ToastContextType
   const [toasts, setToasts] = useToasts
 
-  useEscKey(() => {
-    // console.log(event.key)
+  const handleESC = useCallback((event: KeyboardEvent) => {
+    console.log(event.key)
     setToasts([])
-  })
+  }, [setToasts])
+
+  useEscKey(handleESC)
 
   return (
     <ol className={styles.wrapper}>
