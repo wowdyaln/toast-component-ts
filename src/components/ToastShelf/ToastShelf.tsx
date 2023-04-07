@@ -3,7 +3,7 @@ import { ToastContext, ToastContextType } from '../ToastProvider'
 
 import Toast from '../Toast'
 import styles from './ToastShelf.module.css'
-import useEscKey from '../../hooks/use-esc-key'
+import useKeyDown from '../../hooks/use-key-down'
 
 function ToastShelf() {
   const { useToasts } = React.useContext(ToastContext) as ToastContextType
@@ -14,7 +14,7 @@ function ToastShelf() {
     setToasts([])
   }, [setToasts])
 
-  useEscKey(handleESC)
+  useKeyDown('Escape', handleESC)
 
   return (
     <ol className={styles.wrapper}>
